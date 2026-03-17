@@ -6,7 +6,7 @@
 
 ## Demo ao vivo
 
-[🔗 Abrir app](URL_DO_STREAMLIT_AQUI)
+[🔗 Abrir app](https://churn-eval.streamlit.app/)
 
 ![App screenshot](assets/app_screenshot.png)
 
