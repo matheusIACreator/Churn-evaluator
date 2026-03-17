@@ -1,6 +1,9 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import subprocess
+
+if not os.path.exists('data/telco_churn.csv'):
+    subprocess.run(['bash', 'setup.sh'], check=True)    
 
 import streamlit as st
 import pandas as pd
