@@ -82,30 +82,21 @@ def plot_results(models_data: list, X_test, y_test):
     print("\nGráficos salvos em assets/model_evaluation.png")
     plt.show()
 
-if __name__ =='__main__':
+if __name__ == '__main__':
     df = load_and_clean('data/telco_churn.csv')
     df = encode(df)
     X_train, X_test, y_train, y_test = split(df)
-
     save_columns(X_train)
 
-    #Treinando os modelos
     print("Treinando Baseline (Logistic Regression)....")
-    baseline = train_baseline(X_train,y_train)
+    baseline = train_baseline(X_train, y_train)
 
     print("\nTreinando XGBoost...")
-    xgb_model= train_xgboost(X_train,y_train)
+    xgb_model = train_xgboost(X_train, y_train, X_test, y_test)  # 4 argumentos
 
-    #Avalia
-    evaluate(baseline,X_test,y_test,'Baseline - Logistic Regression')
-    evaluate(xgb_model,X_test,y_test,'XGBoost')
+    evaluate(baseline, X_test, y_test, 'Baseline - Logistic Regression')
+    evaluate(xgb_model, X_test, y_test, 'XGBoost')
 
-    plot_results([
-        ('Baseline - Logistic Regression', baseline),
-        ('XGBoost', xgb_model)
-    ], X_test, y_test)
-
-    #Salvar melhor modelo
-    os.makedirs('models',exist_ok=True)
-    joblib.dump(xgb_model,'models/xgb_model.pkl')
+    os.makedirs('models', exist_ok=True)
+    joblib.dump(xgb_model, 'models/xgb_model.pkl')
     print("\nMelhor modelo salvo em models/xgb_model.pkl")
