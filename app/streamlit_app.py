@@ -1,9 +1,14 @@
 import sys
 import os
+
+# Garante que src/ é encontrado independente do working directory
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+
 import subprocess
 
-if not os.path.exists('data/telco_churn.csv'):
-    subprocess.run(['bash', 'setup.sh'], check=True)    
+if not os.path.exists(os.path.join(ROOT, 'data', 'telco_churn.csv')):
+    subprocess.run(['bash', os.path.join(ROOT, 'setup.sh')], check=True)
 
 import streamlit as st
 import pandas as pd
@@ -21,14 +26,14 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model():
-    model = joblib.load('models/xgb_model.pkl')
-    feature_cols = joblib.load('models/feature_columns.pkl')
+    model = joblib.load(os.path.join(ROOT, 'models', 'xgb_model.pkl'))
+    feature_cols = joblib.load(os.path.join(ROOT, 'models', 'feature_columns.pkl'))
     explainer = shap.TreeExplainer(model, data=get_test_data(feature_cols))
     return model, feature_cols, explainer
 
 @st.cache_data
 def get_test_data(feature_cols):
-    df = load_and_clean('data/telco_churn.csv')
+    df = load_and_clean(os.path.join(ROOT, 'data', 'telco_churn.csv'))
     df = encode(df)
     _, X_test, _, _ = split(df)
     return X_test
