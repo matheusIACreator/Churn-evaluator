@@ -6,8 +6,7 @@ env/
 # Dataset — baixar manualmente do Kaggle
 data/
 
-# Modelos treinados — gerados pelo train.py
-models/
+
 
 # Jupyter
 .ipynb_checkpoints/

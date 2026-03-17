@@ -1,8 +1,8 @@
-pandas==2.2.0
-scikit-learn==1.4.0
-xgboost==2.0.3
-shap==0.44.1
-streamlit==1.32.0
-matplotlib==3.8.0
-seaborn==0.13.2
-joblib==1.3.2
+pandas
+scikit-learn
+xgboost
+shap
+streamlit
+matplotlib
+seaborn
+joblib
